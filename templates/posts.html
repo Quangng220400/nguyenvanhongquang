@@ -1,0 +1,36 @@
+{% extends 'post_base.html' %}
+{% block head %}
+<title>Posts Page </title>
+{% endblock%}
+{% block body %}
+<br>
+    <div>
+        <h1 style="display: inline">All Posts Here: </h1>
+        <a style="display: inline" class="btn btn-success float-right" href="/posts/new">+ New Post</a>
+    </div>
+    <br>
+    <div>
+        <form action="{{url_for('search')}}" class="form-inline my-2 my-lg-0">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="q">
+            <button class="btn btn-success btn-lock" type="submit">Search</button>
+        </form>
+    </div>
+    <hr>
+    {% for post in posts %}
+    <h2>{{post.title}}</h2>
+    {% if post.posted_by %}
+    <small>Written By {{post.posted_by}} on {{post.posted_on}}</small>
+    {% else%}
+    <small>Written by Anonymous on {{post.posted_on}}</small>
+    {% endif %}
+    <p style="white-space: pre-wrap">{{post.content}}</p>
+    <br>
+    <a href="/posts/delete/{{post.id}}" ><img
+            src="https://qph.fs.quoracdn.net/main-qimg-83c6de25ed91d13a4f09fb5f11ca8853" height="25px" width="25px"></a>
+    <a href="/posts/edit/{{post.id}}"><img
+            src="https://www.2g-eng.com/wp-content/uploads/2016/01/design-engineering-icon-small.png" height="25px"
+            width="25px"></a>
+    <hr>
+    {% endfor %}
+
+{% endblock%}
